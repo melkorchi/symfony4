@@ -2,10 +2,49 @@
 
 {% block body %}
     <main>
-        <section>
-            <h1>Hello World</h1>
+        <section id="banner" class="major">
+            <div class="inner">
+                <header class="major">
+                    <h1>Hi, my name is Forty</h1>
+                </header>
+                <div class="content">
+                    <p>A responsive site template designed by HTML5 UP<br />
+                    and released under the Creative Commons.</p>
+                    <ul class="actions">
+                        <li><a href="#one" class="button next scrolly">Get Started</a></li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </main>
     
+{% endblock %}
 
+{% block script %} 
+    <script>
+        $(function(){
+
+            let user = {};
+
+            // Document ready
+            $("header.major > h1").click(function() {
+                console.log('OK');
+                $("header.major").html('<input type="email" name="email" id="email" style="width:100%" placeholder="Hi, my name is Mek">');
+            });
+            
+            $("a.button.next.scrolly").click((e) => {
+                e.preventDefault();
+                if (!user.email) {
+                    user.email = $("#email").val();
+                    $("header.major").html('<input type="password" name="password" id="password" style="width:100%" placeholder="Password">');
+                    $("a.button.next.scrolly").text('Get Login');
+                } else {
+                    user.password = $("#password").val();
+                    console.log(user);
+                }
+            });
+
+        });
+    </script>
+    
 {% endblock %}

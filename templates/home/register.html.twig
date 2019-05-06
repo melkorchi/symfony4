@@ -1,0 +1,43 @@
+{% extends "base.html.twig"%}
+
+{% block body %}
+
+        {% set var1 = "true" %}
+        {% set var2 = ["Homme","Femme"] %}
+
+        <section id="banner" class="major">
+            <div class="inner">
+                <header class="major">
+
+                    <div class="field half">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name">
+                    </div>
+                    <div class="field half">
+                        <label for="name">Email</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div class="field half">
+                        <label for="name">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <div class="field half">
+                        <label for="sexe">Sexe</label>
+                        {% for sexe in var2 %}
+                            <input type="radio" name="sexe" value="{{sexe}}"> {{ sexe }}
+                            <br>
+                        {% endfor %}
+                    </div>
+
+                </header>
+                <div class="content">
+                    <p>A responsive site template designed by HTML5 UP<br />
+                    and released under the Creative Commons.</p>
+                    <ul class="actions">
+                        <li><a href="#one" class="button next scrolly">Get Started</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    
+{% endblock %}
