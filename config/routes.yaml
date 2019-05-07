@@ -18,4 +18,14 @@ register:
     defaults:
         template: 'home/index.html.twig'
 
+login_get:
+    path: /login
+    controller: App\Controller\UserController::getLogin
+    methods: GET
+
+login:
+    path: /login
+    controller: App\Controller\UserController::login
+    methods: POST
+    
 

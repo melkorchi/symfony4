@@ -1,13 +1,28 @@
 security:
+    encoders:
+        App\Entity\User: plaintext
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: ~ }
+        fournisseur:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+            form_login: 
+                check_path: login
+                provider: fournisseur
+                default_target_path: home
+                username_parameter: email
+                password_parameter: password
+            logout:
+                path: logout
+                target: index
 
             # activate different ways to authenticate
 
@@ -21,4 +36,4 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/home, roles: ROLE_USER }

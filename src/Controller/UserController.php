@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController {
 
@@ -20,4 +22,19 @@ class UserController extends AbstractController {
     public function register() {
         return $this->render('home/register.html.twig');
     }
+
+    public function getLogin() {
+        return $this->redirectToRoute('index');
+    }
+
+    public function login(AuthenticationUtils $authenticationUtils) {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $email = $authenticationUtils->getLastUsername();
+
+        return new Response(
+            '<html><body>LOGIN PAGE</body></html>'
+        );
+    }
+
+
 }

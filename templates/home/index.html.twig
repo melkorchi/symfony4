@@ -4,16 +4,18 @@
     <main>
         <section id="banner" class="major">
             <div class="inner">
-                <header class="major">
-                    <h1>Hi, my name is Forty</h1>
-                </header>
-                <div class="content">
-                    <p>A responsive site template designed by HTML5 UP<br />
-                    and released under the Creative Commons.</p>
-                    <ul class="actions">
-                        <li><a href="#one" class="button next scrolly">Get Started</a></li>
-                    </ul>
-                </div>
+                <form action="/login" method="POST">
+                    <header class="major">
+                        <h1>Hi, my name is Forty</h1>
+                    </header>
+                    <div class="content">
+                        <p>A responsive site template designed by HTML5 UP<br />
+                        and released under the Creative Commons.</p>
+                        <ul class="actions">
+                            <li><a href="#one" class="button next scrolly">Get Started</a></li>
+                        </ul>
+                    </div>
+                </form>
             </div>
         </section>
     </main>
@@ -33,11 +35,14 @@
             });
             
             $("a.button.next.scrolly").click((e) => {
-                e.preventDefault();
                 if (!user.email) {
+                    e.preventDefault();
                     user.email = $("#email").val();
-                    $("header.major").html('<input type="password" name="password" id="password" style="width:100%" placeholder="Password">');
+                    //$("header.major").html('<input type="password" name="password" id="password" style="width:100%" placeholder="Password">'); #}
+                    $("header.major").append('<input type="password" name="password" id="password" style="width:100%" placeholder="Password">');
                     $("a.button.next.scrolly").text('Get Login');
+
+                    $("ul.actions > li").html('<button type="submit" class="button next scrolly">button</button>');
                 } else {
                     user.password = $("#password").val();
                     console.log(user);
