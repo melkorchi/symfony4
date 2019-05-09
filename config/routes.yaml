@@ -16,7 +16,7 @@ register:
     path: /register
     controller: App\Controller\UserController::register
     defaults:
-        template: 'home/index.html.twig'
+        template: 'home/index.html.twig'  
 
 login_get:
     path: /login
@@ -27,5 +27,15 @@ login:
     path: /login
     controller: App\Controller\UserController::login
     methods: POST
+
+register_post:
+    path: /register_post
+    controller: App\Controller\DefaultController::register
+
+logout:
+    path: /logout
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: 'home/index.html.twig'
     
 

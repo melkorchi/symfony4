@@ -7,7 +7,7 @@
 
         <section id="banner" class="major">
             <div class="inner">
-                <form id="register" method="POST">
+                <form id="register" method="post">
                     <header class="major">
 
                         <div class="field half">
@@ -50,9 +50,10 @@
     <script>
         $(function(){
             $("#register").submit((e) => {
-                e.preventDefault(); // Cancelling thr native event of the tag 
+                e.preventDefault(); // Cancelling the native event of the tag 
                 let dataUser = $("#register").serialize(); // Converting input data to string 
                 $.post("{{ path('register') }}", dataUser, (data) => {
+                    console.log(data);   
                     setTimeout(() => {
                         document.location.href = "{{ path('login')}}"; // Redirect
                     }, 2000);

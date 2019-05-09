@@ -32,7 +32,7 @@ class DefaultController extends AbstractController {
         return $this->render('home/home.html.twig', $data);
     }
 
-    function shuffleArray($name, $tab) {
+    private function shuffleArray($name, $tab) {
         $newArray = [];
         // for($i = 0; $i < count($tab); $i++) { 
         //     if ($tab[$i] != $name) {
@@ -52,5 +52,9 @@ class DefaultController extends AbstractController {
 
             return $newArray;
         }
+    }
+
+    public function register() {
+        return $this->render('home/register.html.twig');
     }
 }
