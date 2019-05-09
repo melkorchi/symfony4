@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
-
+   
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -40,6 +41,15 @@ class User
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    // public function __construct($name, $email, $password) {
+    public function __construct($name, $email) {
+        $this->setName($name);
+        $this->setEmail($email);
+        //$this->setPassword($password);
+        $this->setRoles();
+
+    }
 
     public function getId(): ?int
     {
@@ -82,12 +92,12 @@ class User
         return $this;
     }
 
-    public function getRole(): ?array
+    public function getRoles(): ?array
     {
         return $this->role;
     }
 
-    public function setRole(array $role): self
+    public function setRoles(array $role = ["ROLE_USER"]): self
     {
         $this->role = $role;
 
@@ -101,8 +111,21 @@ class User
 
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
+        //$createdAt = new DateTime();
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function getSalt() {
+
+    }
+
+    public function getUsername() {
+        return $this->getEmail();
+    }
+
+    public function eraseCredentials() {
+        
     }
 }
