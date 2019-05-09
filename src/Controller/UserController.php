@@ -31,8 +31,6 @@ class UserController extends AbstractController {
         $er = $this->getDoctrine()->getRepository(User::class);
 
         $theUser = $er->findOneBy(["email" => $request->get("email")]);
-        //die(theUser);
-        //return $this->returnJson([$theUser], 200);
 
         if (!$theUser) {
             $em = $this->getDoctrine()->getManager();
@@ -46,14 +44,11 @@ class UserController extends AbstractController {
             } catch(Doctrine\ORM\EntityNotFoundException $e) {
                 return $this->returnJson([ $e->getMessage() ], 403);
             }
-
         } else {
+            dd($theUser);
             return $this->returnJson("Email already exists", 403);
         }
 
-        //else
-          //  return $this->returnJson("Valid email", 200);
-        // return $this->render('home/register.html.twig');
     }
 
     public function getLogin() {
@@ -61,10 +56,10 @@ class UserController extends AbstractController {
     }
 
     public function login(AuthenticationUtils $authenticationUtils) {
-        // die('ici');
+    
         $error = $authenticationUtils->getLastAuthenticationError();
         $email = $authenticationUtils->getLastUsername();
-        
+
         return $this->render('home/register.html.twig');
     }
 
