@@ -1,0 +1,66 @@
+{% extends "base.html.twig"%}
+
+{% block body %}
+
+        {% set listEvent = ["Sport", "Concert", "Autre"] %}
+        {% set var2 = ["Homme","Femme"] %}
+
+        <section id="banner" class="major">
+            <div class="inner">
+                <form id="register_event" method="post">
+                    <header class="major">
+
+                        <div class="field half">
+                            <label for="type">Event Type</label>
+                            <select id="type" name="type">
+                            {% for event in listEvent %}
+                                <option value="{{event|lower}}">{{event}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field half">
+                            <label for="name">Event Name</label>
+                            <input type="text" name="name" id="name">
+                        </div>
+                        <div class="field half">
+                            <label for="dateEvent">Event Date</label>
+                            <input type="datetime-local" name="dateEvent" id="dateEvent" style="color:#000000">
+                        </div>
+                    </header>
+                    <div class="content">
+                        <p>A responsive site template designed by HTML5 UP<br />
+                        and released under the Creative Commons.</p>
+                        <ul class="actions">
+                            <li><button type="submit" class="button next scrolly">Create Event</a></li>
+                        </ul>
+                    </div>
+                    <span id="message"></span>
+                </form>
+            </div>
+        </section>
+    
+{% endblock %}
+
+{% block script %} 
+    <script>
+        $(function(){
+            $("#register_event").submit((e) => {
+                //$("#message").text("");
+                e.preventDefault(); // Cancelling the native event of the tag 
+                let dataEvent = $("#register_event").serialize(); // Converting input data to string 
+                $.post("{{ path('add-event-post') }}", dataEvent, (data) => {
+                    //$("#message").text(data[0]);
+                    //console.log(data);   
+                    setTimeout(() => {
+                        document.location.href = "{{ path('login')}}"; // Redirect
+                    }, 2000)
+                }).fail((error) => {
+                    console.log(error);
+                    //$("#message").css("color", 'red');
+                    //$("#message").text(error.responseJSON[0]);
+                })
+            })
+        });
+    </script>
+    
+{% endblock %}

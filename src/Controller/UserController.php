@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\SuperController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 use App\Entity\User;
 
-class UserController extends AbstractController {
+class UserController extends SuperController {
 
     public function home() {
         $data = [
@@ -61,10 +62,6 @@ class UserController extends AbstractController {
         $email = $authenticationUtils->getLastUsername();
 
         return $this->render('home/register.html.twig');
-    }
-
-    private function returnJson($data, $status = 200) {
-        return new Response(json_encode($data), $status, ["Content-type" => "application/json"]);
     }
 
 

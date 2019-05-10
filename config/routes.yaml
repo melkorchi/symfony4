@@ -14,9 +14,15 @@ home:
 
 register:
     path: /register
-    controller: App\Controller\UserController::register
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    methods: GET
     defaults:
-        template: 'home/index.html.twig'  
+        template: 'home/register.html.twig'  
+
+register_post:
+    path: /register
+    controller: App\Controller\UserController::register
+    methods: POST
 
 login_get:
     path: /login
@@ -28,14 +34,22 @@ login:
     controller: App\Controller\UserController::login
     methods: POST
 
-register_post:
-    path: /register_post
-    controller: App\Controller\DefaultController::register
-
 logout:
     path: /logout
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /
+        permanent: true
+
+add-event:
+    path: /home/event/add
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        template: 'home/index.html.twig'
+        template: 'home/register-event.html.twig'
+
+add-event-post:
+    path: /api/event/add
+    controller: App\Controller\EventController::register
+    methods: POST
     
 

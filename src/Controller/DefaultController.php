@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends AbstractController {
 
     public function home(Request $request) {
+        $user = ["name" => $this->getUser()->getName(), "email" => $this->getUser()->getEmail()];
         $name = $request->query->get("name");
         $aTab = ["01" => "Aliquam", "02" => "Tempus", "03" =>"Magna", "04" =>"Ipsum", "05" =>"Consequat", "06" =>"Etiam"];
 
@@ -24,7 +25,8 @@ class DefaultController extends AbstractController {
             // "name" => "Melkorchi",
             // "age" => 28,
             // "notes" => [20,18,17],
-            "img" => $aTab
+            "img" => $aTab,
+            "user" => $user
         ];
 
         // dd($this->shuffleArray($name, $name));

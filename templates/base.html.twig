@@ -10,8 +10,8 @@
 		<title>Forty by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+		<noscript><link rel="stylesheet" href="{{ asset('assets/css/noscript.css') }}" /></noscript>
 	</head>
 	<body class="is-preload">
 
@@ -20,27 +20,18 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
+						<a href="index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP </span></a>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
 					</header>
 
-				<!-- Menu -->
-					<nav id="menu">
-						<ul class="links">
-							<li><a href="{{ path('home') }}">Home</a></li>
-							<li><a href="{{ path('index') }}">Login</a></li>
-							<!--<li><a href="{{ path('register') }}">Register</a></li>-->
-							<li><a href="{{ path('register_post') }}">Register</a></li>
-						</ul>
-						<ul class="actions stacked">
-							<!--<li><a href="#" class="button primary fit">Get Started</a></li>
-							<li><a href="#" class="button fit">Log In</a></li>-->
-                            <li><a href="{{ path('logout') }}" class="button primary fit">Logout</a></li>
-						</ul>
-					</nav>
-
+				<!--menu-->
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% include "includes/menu-home.html.twig" %}
+                {% else %}
+                    {% include "includes/menu-login.html.twig" %}
+                {% endif %}
 				<!-- Banner -->
 					
                     {% block body %}
@@ -66,13 +57,13 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+			<script src="{{ asset('assets/js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ asset('assets/js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ asset('assets/js/browser.min.js') }}"></script>
+			<script src="{{ asset('assets/js/breakpoints.min.js') }}"></script>
+			<script src="{{ asset('assets/js/util.js') }}"></script>
+			<script src="{{ asset('assets/js/main.js') }}"></script>
 
             {% block script %} {% endblock %}
 

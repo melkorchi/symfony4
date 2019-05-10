@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
    
@@ -42,12 +44,18 @@ class User implements UserInterface
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="creator")
+     */
+    private $events;
+
     // public function __construct($name, $email, $password) {
     public function __construct($name, $email) {
         $this->setName($name);
         $this->setEmail($email);
         //$this->setPassword($password);
         $this->setRoles();
+        $this->events = new ArrayCollection();
 
     }
 
@@ -127,5 +135,36 @@ class User implements UserInterface
 
     public function eraseCredentials() {
         
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getCreator() === $this) {
+                $event->setCreator(null);
+            }
+        }
+
+        return $this;
     }
 }

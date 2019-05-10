@@ -40,6 +40,7 @@
                             
                         </ul>
                     </div>
+                    <span id="message"></span>
                 </form>
             </div>
         </section>
@@ -50,14 +51,20 @@
     <script>
         $(function(){
             $("#register").submit((e) => {
+                $("#message").text("");
                 e.preventDefault(); // Cancelling the native event of the tag 
                 let dataUser = $("#register").serialize(); // Converting input data to string 
                 $.post("{{ path('register') }}", dataUser, (data) => {
-                    console.log(data);   
+                    $("#message").text(data[0]);
+                    //console.log(data);   
                     setTimeout(() => {
                         document.location.href = "{{ path('login')}}"; // Redirect
-                    }, 2000);
-                });
+                    }, 2000)
+                }).fail((error) => {
+                    console.log(error);
+                    $("#message").css("color", 'red');
+                    $("#message").text(error.responseJSON[0]);
+                })
             })
         });
     </script>
